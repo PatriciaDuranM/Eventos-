@@ -53,6 +53,7 @@ document.addEventListener("keyup", keynopress);
  */
 
 const words = ["Hola1", "que2", "tal3", "estas4", "tu5"];
+let posicion = 0; /*necesitamos saber la posición de los elementos del array*/
 
 /* Encontramos los elementos de HTML*/
 const prevElement = document.getElementById("prevbuttom");
@@ -61,4 +62,32 @@ const changeTextElement = document.getElementById("h2");
 
 /* Funciones del callback*/
 
+/*Necesitamos una función que actualice el texto en el elemento <h2> en base a la posición actual en el array.*/
+const actualizarTexto = () => {
+  changeTextElement.textContent = words[posicion];
+};
+
+/*Función para ir para delante, añade una posición más, si la posición llega al final, vuelve a la posición 0*/
+const nextWord = () => {
+  posicion++;
+  if (posicion >= words.length) {
+    posicion = 0;
+  }
+  actualizarTexto();
+};
+
+/*Función para ir para atrás. Ve para atrás, si la posición es menor que 0, la posición es la última del array*/
+
+const prevWord = () => {
+  posicion--;
+  if (posicion < 0) {
+    posicion = words.length - 1;
+  }
+  actualizarTexto();
+};
+
 /* Eventos*/
+/*boton siguiente*/
+nextElement.addEventListener("click", nextWord);
+/*boton anterior*/
+prevElement.addEventListener("click", prevWord);
